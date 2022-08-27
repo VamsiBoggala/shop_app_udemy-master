@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import './screens/products_overview.dart';
 import './screens/product_detail_screen.dart';
 import './provider/products.dart';
+import 'provider/cart.dart';
+import './screens/cart_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,9 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: missing_required_param
-    return ChangeNotifierProvider(
-      create: (ctx) => Products(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        ),
+      ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'MyShop',
         theme: ThemeData(
             primarySwatch: Colors.purple,
@@ -24,6 +34,7 @@ class MyApp extends StatelessWidget {
         home: ProductsOverviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+          CartScren.routeName: (ctx) => CartScren(),
         },
       ),
     );

@@ -1,12 +1,9 @@
-
-
 import 'package:flutter/material.dart';
-import '../model/product.dart';
+import 'product.dart';
 
-class Products with ChangeNotifier{
-
-  List<Product>  _items = [
-     Product(
+class Products with ChangeNotifier {
+  List<Product> _items = [
+    Product(
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
@@ -40,14 +37,36 @@ class Products with ChangeNotifier{
     ),
   ];
 
+  // var _showFavouritesOnly = false;
+
   List<Product> get items {
+    // if (_showFavouritesOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
+    // }
     return [..._items];
   }
 
-  void addProduct(){
+  List<Product> get favouriteItems {
+    return _items.where((prodId) => prodId.isFavorite).toList();
+  }
+
+  Product findById(String id) {
+    return _items.firstWhere((prod) => prod.id == id);
+  }
+
+  // void showFavouritesOnly() {
+  //   _showFavouritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavouritesOnly = false;
+  //   notifyListeners();
+  // }
+
+  void addProduct() {
     // items.add(value);
 
     notifyListeners();
   }
-
 }
